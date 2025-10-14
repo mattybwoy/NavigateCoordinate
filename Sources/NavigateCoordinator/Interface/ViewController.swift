@@ -28,7 +28,6 @@ public protocol ViewController: AnyObject, Dismissable {
     var sheetPresentationController: UISheetPresentationController? { get }
     var activePresentationController: UIPresentationController? { get }
     var navigationController: NavigationController? { get }
-    var tabBarController: UITabBarController? { get }
     var hidesBottomBarWhenPushed: Bool { get set }
 
     func loadView()
