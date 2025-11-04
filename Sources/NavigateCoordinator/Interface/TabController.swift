@@ -8,7 +8,7 @@
 import UIKit
 
 @MainActor
-public protocol TabController: AnyObject {
+public protocol TabController: AnyObject, ViewController {
     var selectedIndex: Int { get set }
     var viewControllers: [UIViewController]? { get set }
     
