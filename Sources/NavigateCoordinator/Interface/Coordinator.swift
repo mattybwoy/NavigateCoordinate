@@ -34,13 +34,12 @@ public extension Coordinator {
     ) -> ViewController {
         childCoordinators.append(child)
         child.parentCoordinator = self
-        child.start(transition: transition, onDismissed: { [weak self, weak child] in
+        return child.start(transition: transition, onDismissed: { [weak self, weak child] in
             guard let self, let child else { return }
 
             self.removeChild(child)
             onDismissed?()
         })
-        return child.baseViewController!
     }
 
     private func removeChild(_ child: Coordinator) {
