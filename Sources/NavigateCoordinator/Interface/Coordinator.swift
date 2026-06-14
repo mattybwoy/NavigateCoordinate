@@ -13,12 +13,12 @@ public protocol Coordinator: AnyObject {
     var parentCoordinator: Coordinator? { get set }
 
     func finish(animated: Bool)
-    func start(transition: Transition, onDismissed: (() -> Void)?) -> any ViewController
+    func start(transition: Transition, onDismissed: (() -> Void)?)
     func startChild(
         _ child: Coordinator,
         transition: Transition,
         onDismissed: (() -> Void)?
-    )
+    ) -> any ViewController
 }
 
 public extension Coordinator {
@@ -34,12 +34,13 @@ public extension Coordinator {
     ) -> ViewController {
         childCoordinators.append(child)
         child.parentCoordinator = self
-        return child.start(transition: transition, onDismissed: { [weak self, weak child] in
+        child.start(transition: transition, onDismissed: { [weak self, weak child] in
             guard let self, let child else { return }
 
             self.removeChild(child)
             onDismissed?()
         })
+        return child.baseViewController!
     }
 
     private func removeChild(_ child: Coordinator) {
